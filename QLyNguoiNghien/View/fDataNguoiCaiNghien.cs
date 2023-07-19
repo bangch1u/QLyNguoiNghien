@@ -25,6 +25,8 @@ namespace QLyNguoiNghien.View
             txtTuoi.KeyPress += txtTuoi_KeyPress; //đăng kí sự kiện KeyPress cho txtTuoi
             txtHoTen.KeyPress += txtHoTen_KeyPress_1;
             txtMaNN.KeyPress += txtMaNN_KeyPress;
+            cmbPhuongPhap.SelectedIndex = 0;
+            cmbPhuongPhap.DropDownStyle = ComboBoxStyle.DropDownList;
             LoadGid(null);
         }
 
@@ -71,6 +73,16 @@ namespace QLyNguoiNghien.View
             {
                 MessageBox.Show("Không được bỏ trống mã");
                 return;
+            }
+            var list = _resNghien.GetNguoiCaiNghiens(null).ToList();
+            foreach (var item in list)
+            {
+                if (item.MaNghien == txtMaNN.Text)
+                {
+                    MessageBox.Show("Mã đã tồn tại");
+                    return;
+                }
+               
             }
             obj.MaNghien = txtMaNN.Text;
             if (txtHoTen.Text == "")
